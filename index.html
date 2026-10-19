@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>💀 CẢNH BÁO: TRUY CẬP WEB ĐEN | Mật Mã Tuyệt Mật ⚠️</title>
+    <!-- Meta tags hiển thị khi gửi link qua Zalo / Facebook / Messenger -->
+    <meta name="description" content="Chào mừng bạn đến với web đen! Giải mã mật khẩu để mở khóa món quà đặc biệt..." />
+    <meta property="og:title" content="💀 CẢNH BÁO: TRUY CẬP WEB ĐEN | Mật Mã Tuyệt Mật ⚠️" />
+    <meta property="og:description"
+        content="Chào mừng bạn đến với web đen! Giải mã mật khẩu để mở khóa món quà đặc biệt..." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0d0208" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Creepster&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Dancing+Script:wght@600;700&family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap&subset=vietnamese"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --blood-red: #ff003c;
+            --dark-red: #8b0000;
+            --cyber-green: #00ff66;
+            --pink: #ff6fae;
+            --rose: #ff3d84;
+            --gold: #ffd9a8;
+            --text: #fff1f6;
+            --dark-bg: #070206;
+            --serif: "Playfair Display", Georgia, serif;
+            --script: "Dancing Script", cursive;
+            --sans: "Be Vietnam Pro", sans-serif;
+            --mono: "Share Tech Mono", monospace;
+            --horror: "Creepster", cursive, fantasy;
+            box-sizing: border-box;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+            cursor: none !important;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: var(--dark-bg);
+            color: var(--text);
+            font-family: var(--sans);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Glow backgrounds */
+        .glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.35;
+            pointer-events: none;
+            transition: all 1.2s ease;
+        }
+
+        .g1 {
+            width: 50vmax;
+            height: 50vmax;
+            background: #7a0019;
+            left: -15vmax;
+            top: -10vmax;
+        }
+
+        .g2 {
+            width: 45vmax;
+            height: 45vmax;
+            background: #36021e;
+            right: -12vmax;
+            bottom: -10vmax;
+        }
+
+        body.mode-romantic .g1 {
+            background: #ff2d8a;
+            opacity: 0.4;
+        }
+
+        body.mode-romantic .g2 {
+            background: #8a3dff;
+            opacity: 0.38;
+        }
+
+        body.mode-romantic {
+            background: radial-gradient(circle at 50% 30%, #4a1240, #20081d 75%);
+        }
+
+        /* Matrix canvas hiệu ứng số chạy nền kinh dị */
+        #matrixCanvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.45;
+            transition: opacity 1s ease;
+        }
+
+        #matrixCanvas.hide {
+            opacity: 0;
+        }
+
+        /* Lớp quét màn hình CRT Scanline */
+        .scanlines {
+            position: fixed;
+            inset: 0;
+            z-index: 99;
+            pointer-events: none;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+                    rgba(0, 0, 0, 0.45) 50%), linear-gradient(90deg,
+                    rgba(255, 0, 0, 0.03),
+                    rgba(0, 255, 0, 0.01),
+                    rgba(0, 0, 255, 0.03));
+            background-size: 100% 4px, 6px 100%;
+            opacity: 0.6;
+            transition: opacity 0.8s ease;
+        }
+
+        .scanlines.hide {
+            opacity: 0;
+        }
+
+        /* Nút điều khiển âm thanh ở góc màn hình */
+        #audioToggle {
+            position: fixed;
+            top: 14px;
+            right: 14px;
+            z-index: 2000;
+            background: rgba(20, 5, 15, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 99px;
+            font-size: 0.78rem;
+            font-family: var(--sans);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        #audioToggle:hover {
+            background: rgba(255, 61, 132, 0.4);
+            border-color: var(--pink);
+            transform: scale(1.05);
+        }
+
+        /* ======================================================== */
+        /* GIAI ĐOẠN 1: MÀN HÌNH WEB ĐEN KINH DỊ                    */
+        /* ======================================================== */
+        #horrorStage {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+
+        #horrorStage.hide {
+            opacity: 0;
+            transform: scale(1.08);
+            pointer-events: none;
+        }
+
+        /* Huy hiệu cảnh báo Dark Web nhấp nháy */
+        .danger-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 0, 60, 0.15);
+            border: 1px solid var(--blood-red);
+            color: var(--blood-red);
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            padding: 6px 16px;
+            border-radius: 99px;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+            animation: dangerPulse 1.4s infinite alternate;
+        }
+
+        @keyframes dangerPulse {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
+                transform: scale(1);
+            }
+
+            100% {
+                box-shadow: 0 0 25px rgba(255, 0, 60, 0.8);
+                transform: scale(1.03);
+            }
+        }
+
+        .danger-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--blood-red);
+            box-shadow: 0 0 10px var(--blood-red);
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        /* Tiêu đề Chào mừng bạn đến với web đen với hiệu ứng Glitch */
+        .glitch-wrapper {
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .glitch-title {
+            font-family: var(--mono);
+            font-size: clamp(1.8rem, 5.8vw, 3.6rem);
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            position: relative;
+            margin: 0;
+            text-shadow: 0 0 15px rgba(255, 0, 60, 0.8), 0 0 30px rgba(255, 0, 60, 0.4);
+            animation: glitchText 3.5s infinite;
+        }
+
+        .glitch-title::before,
+        .glitch-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip: rect(0, 0, 0, 0);
+        }
+
+        .glitch-title::before {
+            left: -2px;
+            text-shadow: 2px 0 #00ffea;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch-title::after {
+            left: 2px;
+            text-shadow: -2px 0 #ff0055;
+            animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% {
+                clip: rect(20px, 9999px, 45px, 0);
+            }
+
+            20% {
+                clip: rect(60px, 9999px, 80px, 0);
+            }
+
+            40% {
+                clip: rect(10px, 9999px, 30px, 0);
+            }
+
+            60% {
+                clip: rect(80px, 9999px, 100px, 0);
+            }
+
+            80% {
+                clip: rect(35px, 9999px, 65px, 0);
+            }
+
+            100% {
+                clip: rect(15px, 9999px, 50px, 0);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip: rect(40px, 9999px, 60px, 0);
+            }
+
+            25% {
+                clip: rect(10px, 9999px, 35px, 0);
+            }
+
+            50% {
+                clip: rect(75px, 9999px, 95px, 0);
+            }
+
+            75% {
+                clip: rect(25px, 9999px, 55px, 0);
+            }
+
+            100% {
+                clip: rect(50px, 9999px, 70px, 0);
+            }
+        }
+
+        /* Dòng chữ cùng giải mã mật khẩu để nhận được món quà */
+        .horror-subtitle {
+            font-family: var(--mono);
+            font-size: clamp(1rem, 2.5vw, 1.45rem);
+            color: #ff8ca3;
+            margin: 0.4rem 0 1.2rem;
+            max-width: 680px;
+            line-height: 1.5;
+            text-shadow: 0 0 12px rgba(255, 61, 132, 0.5);
+            animation: subtitleGlow 2s infinite alternate;
+        }
+
+        @keyframes subtitleGlow {
+            from {
+                opacity: 0.85;
+                filter: brightness(1);
+            }
+
+            to {
+                opacity: 1;
+                filter: brightness(1.3);
+            }
+        }
+
+        /* Terminal thông số dữ liệu */
+        .terminal-box {
+            background: rgba(10, 2, 8, 0.85);
+            border: 1px solid rgba(255, 0, 60, 0.4);
+            border-radius: 14px;
+            padding: 0.9rem 1.4rem;
+            max-width: 520px;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: #00ff88;
+            text-align: left;
+            box-shadow: inset 0 0 20px rgba(255, 0, 60, 0.15), 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .terminal-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 4px 0;
+            opacity: 0.9;
+        }
+
+        .terminal-row span:last-child {
+            color: #ff0055;
+            font-weight: bold;
+        }
+
+        /* Đếm ngược đe dọa */
+        .countdown-timer {
+            font-family: var(--mono);
+            font-size: 1.1rem;
+            color: #ffcc00;
+            margin-bottom: 1.3rem;
+            text-shadow: 0 0 15px rgba(255, 204, 0,
